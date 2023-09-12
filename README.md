@@ -7,5 +7,5 @@ The input variable is a character vector of at least 30 taxonomic names, which c
 
 The function returns a data frame with the following information: scientific name, accepted AphiaID and scientific names, Phylum, Class, Order, Family, Genus and type of match according to WoRMS classification (e.g., exact, exact_subgenus, near_1, near_2, phonetic).
 
-The function is designed to skip miss matches without stoping the matching process, which proves advantageous when dealing with large databases.
+The function is designed to skip missmatches without stoping the full process, which proves advantageous when dealing with large databases.
 
