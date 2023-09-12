@@ -8,31 +8,20 @@ library(dplyr)
 
 # Importing list of species from various sources
 setwd("C:/R")
-emodnet_raw <- read.csv2("faz_AMP_EMODnetrecords.csv")
-sp_aut_emodnet <- cbind.data.frame(emodnet_raw$scientificnameaccepted, emodnet_raw$scientificnameauthorship)
-sp_aut_emodnet_unique <- sp_aut_emodnet[!duplicated(sp_aut_emodnet),]
-sp_aut_emodnet_unique[3] <- "EMODnet"
-colnames(sp_aut_emodnet_unique) <- c("species","author","database")
-
-obis_raw <- read.csv2("obis_square.csv")
-sp_aut_obis <- cbind.data.frame(obis_raw$scientificName, obis_raw$scientificNameAuthorship)
-sp_aut_obis_unique <- sp_aut_obis[!duplicated(sp_aut_obis),]
-sp_aut_obis_unique[3] <- "OBIS"
-colnames(sp_aut_obis_unique) <- c("species","author","database")
-
-sp_aut_all <- rbind.data.frame(sp_aut_emodnet_unique, sp_aut_obis_unique)
-tail(sp_aut_all)
+species_raw <- read.csv2("spplist.csv")
+sp_aut <- cbind.data.frame(species_raw$scientificnameaccepted, species_raw$scientificnameauthorship)
+colnames(sp_aut) <- c("species","author")
 
 # Cleaning species and author names
-sp_aut_all$species <- str_remove(sp_aut_all$species, " sp.")
-sp_aut_all$species[which(str_detect(sp_aut_all$species, " spp."))] # rank class, therefore we remove
-sp_aut_all <- sp_aut_all[which(!str_detect(sp_aut_all$species, " spp.")),]
-sp_aut_all$species <- str_replace(sp_aut_all$species, "\\(", " (")
-sp_aut_all$author <- str_remove(sp_aut_all$author, "\\(")
-sp_aut_all$author <- str_remove(sp_aut_all$author, "\\)")
-sp_aut_all <- mutate(sp_aut_all, sp_aut = paste(species,author, sep = " "))
+sp_aut$species <- str_remove(sp_aut$species, " sp.")
+sp_aut$species[which(str_detect(sp_aut$species, " spp."))] # rank class, therefore we remove
+sp_aut <- sp_aut[which(!str_detect(sp_aut$species, " spp.")),]
+sp_aut$species <- str_replace(sp_aut$species, "\\(", " (")
+sp_aut$author <- str_remove(sp_aut$author, "\\(")
+sp_aut$author <- str_remove(sp_aut$author, "\\)")
+sp_aut <- mutate(sp_aut, sp_aut = paste(species,author, sep = " "))
 
-spplist <- sp_aut_all$sp_aut
+spplist <- sp_aut$sp_aut
 
 database_spp_check <- function(spplist) {
   # Checking initial conditions
