@@ -1,13 +1,15 @@
-#'database_spp_check': function to verify and extract taxonomic information and status for a large list of marine species from the World Register of Marine Species (WoRMS, marinespecies.org)
-# 
-# INPUT: 
-#   - spplist: Character vector with list of taxa which can also include authorship name and year. The list needs to have a minimum of 30 taxa.
-# 
-# OUTPUT:
-#   - a data frame with the taxa entered (species_source), accepted aphiaID, species names, classification and type of march at WoRMS.
-# 
-# Library requirements: jsonlite
-###############################################################################################################################################
+#'database_spp_check': function to verify and extract taxonomic information and status for a large list of marine species from the World Register of Marine Species (WoRMS, marinespecies.org)#
+#                                                                                                                                                                                             #
+# CITATION: Neus Campanyà-Llovet. (2024). neuscamllo/Long-species-list-WoRMS: v1.0.0 (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.13991855                                                #
+#                                                                                                                                                                                             #
+# INPUT:                                                                                                                                                                                      # 
+#   - spplist: Character vector with list of taxa which can also include authorship name and year. The list needs to have a minimum of 30 taxa.                                               # 
+#                                                                                                                                                                                             #
+# OUTPUT:                                                                                                                                                                                     #   
+#   - a data frame with the taxa entered (species_source), accepted aphiaID, species names, classification and type of march at WoRMS.                                                        #
+#                                                                                                                                                                                             #
+# Library requirements: jsonlite                                                                                                                                                              #
+###############################################################################################################################################################################################  
 
 database_spp_check <- function(spplist) {
   # initializing output variables
